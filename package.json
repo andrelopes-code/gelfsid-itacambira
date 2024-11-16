@@ -1,5 +1,5 @@
 {
     "scripts": {
-        "tw": "npx tailwindcss -i ./src/frontend/templates/static/css/input.css -o ./src/frontend/templates/static/css/style.css --watch"
+        "tw": "npx tailwindcss -i ./src/frontend/static/css/input.css -o ./src/frontend/static/css/style.css --watch"
     }
 }

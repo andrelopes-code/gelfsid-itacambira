@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PyWebView Application</title>
+
+        <!-- Links -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    </head>
+
+    <body class="flex flex-col bg-dark w-screen h-screen">
+        <!-- Resize Handlers -->
+        <div class="left resize-handle" id="left-resize"></div>
+        <div class="right resize-handle" id="right-resize"></div>
+        <div class="top resize-handle" id="top-resize"></div>
+        <div class="bottom resize-handle" id="bottom-resize"></div>
+
+        <!-- Corners -->
+        <div class="top-left corner resize-handle" id="top-left-resize"></div>
+        <div class="top-right corner resize-handle" id="top-right-resize"></div>
+        <div class="bottom-left corner resize-handle" id="bottom-left-resize"></div>
+        <div class="bottom-right corner resize-handle" id="bottom-right-resize"></div>
+
+        {% include "titlebar.html" %} {% block content %} {% endblock content %}
+    </body>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% if resizable %}
+    <link rel="stylesheet" href="{% static 'css/resize.css' %}" />
+    <script src="{% static 'js/resize.js' %}"></script>
+    {% endif %}
+</html>

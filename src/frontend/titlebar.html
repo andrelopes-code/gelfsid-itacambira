@@ -1,0 +1,45 @@
+<div class="flex justify-between items-center bg-transparent pl-4 pywebview-drag-region w-full h-10">
+    <p class="font-bold text-dark-400">Gerar PDF</p>
+
+    <div class="flex justify-center items-center h-full">
+        <button
+            onclick="window.pywebview.api.minimize_window()"
+            class="hover:brightness-50 px-4 window-button h-full"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#888" viewBox="0 0 256 256">
+                <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"></path>
+            </svg>
+        </button>
+
+        {% if resizable %}
+        <button
+            onclick="window.pywebview.api.toggle_maximize_window()"
+            class="hover:brightness-50 px-4 window-button h-full text-center"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#666" viewBox="0 0 256 256">
+                <path
+                    d="M216,48V88a8,8,0,0,1-16,0V56H168a8,8,0,0,1,0-16h40A8,8,0,0,1,216,48ZM88,200H56V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H88a8,8,0,0,0,0-16Zm120-40a8,8,0,0,0-8,8v32H168a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,208,160ZM88,40H48a8,8,0,0,0-8,8V88a8,8,0,0,0,16,0V56H88a8,8,0,0,0,0-16Z"
+                ></path>
+            </svg>
+        </button>
+        {% endif %}
+
+        <button
+            onclick="window.pywebview.api.close_window()"
+            class="hover:bg-red-400 px-4 window-button h-full hover:text-white group"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                fill="#666"
+                class="group-hover:fill-white"
+                viewBox="0 0 256 256"
+            >
+                <path
+                    d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"
+                ></path>
+            </svg>
+        </button>
+    </div>
+</div>

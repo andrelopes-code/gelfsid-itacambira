@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Área de resize */
+.resize-handle {
+    position: fixed;
+    background: transparent;
+}
+
+/* Handle laterais */
+.resize-handle.right {
+    width: 4px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    cursor: e-resize;
+}
+
+.resize-handle.left {
+    width: 4px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: w-resize;
+}
+
+/* Handle superior e inferior */
+.resize-handle.top {
+    height: 4px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    cursor: n-resize;
+}
+
+.resize-handle.bottom {
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    cursor: s-resize;
+}
+
+/* Cantos */
+.resize-handle.corner {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+}
+
+.resize-handle.top-left {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+}
+
+.resize-handle.top-right {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+}
+
+.resize-handle.bottom-left {
+    bottom: 0;
+    left: 0;
+    cursor: sw-resize;
+}
+
+.resize-handle.bottom-right {
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+
+/* Container principal */
+#app-container {
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}

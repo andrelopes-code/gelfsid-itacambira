@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.window-button {
+    font-family: system-ui, -apple-system;
+    user-select: none;
+    line-height: 1;
+}
+
+.noscroll::-webkit-scrollbar {
+    display: none;
+}
+
+textarea::placeholder {
+    text-align: center;
+    position: relative;
+    top: 48%;
+    transform: translateY(-48%);
+}
+
+textarea::-webkit-input-placeholder {
+    text-align: center;
+    position: relative;
+    top: 48%;
+    transform: translateY(-48%);
+}
+
+textarea:-moz-placeholder {
+    text-align: center;
+    position: relative;
+    top: 48%;
+    transform: translateY(-48%);
+}
+
+textarea::-moz-placeholder {
+    text-align: center;
+    position: relative;
+    top: 48%;
+    transform: translateY(-48%);
+}
+
+textarea:-ms-input-placeholder {
+    text-align: center;
+    position: relative;
+    top: 48%;
+    transform: translateY(-48%);
+}

@@ -1,30 +1,41 @@
-import os
 import webview
 import atexit
+from src.backend.watcher import start_watch_thread, stop_watch_thread
 from src.backend import static
 from src.backend.utils import is_freezed
 from src.backend.api import API
-from src.config import CONFIG
+from src.config import CONFIG, BASE_CONTEXT
 from src.backend.template import render
 
 
-def main():
+def setup_cleanup():
     cleanup = static.serve()
     atexit.register(cleanup)
+    atexit.register(stop_watch_thread)
 
-    api = API()
+
+def main():
+    setup_cleanup()
 
     window = webview.create_window(
         title=CONFIG.title,
-        js_api=api,
         width=CONFIG.width,
         height=CONFIG.height,
         resizable=CONFIG.resizable,
+        frameless=CONFIG.frameless,
         min_size=CONFIG.min_size,
-        html=render('index.html', pwd=os.getcwd()),
+        background_color='#151b25',
+        html=render('index.html', **BASE_CONTEXT),
     )
 
-    api.set_window(window)
+    api = API(window)
+    window._js_api = api
+
+    if CONFIG.debug and CONFIG.watch:
+        start_watch_thread(
+            dir_to_watch=CONFIG.templates_dir,
+            callback=lambda: window.load_html(render('index.html', **BASE_CONTEXT)),
+        )
 
     webview.start(
         debug=False if is_freezed() else CONFIG.debug,
