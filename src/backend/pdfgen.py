@@ -1,8 +1,10 @@
-from fpdf import FPDF
 import os
 import re
 from dataclasses import dataclass
 from typing import List
+
+from fpdf import FPDF
+
 from src.backend.utils import resource_path
 
 
@@ -15,7 +17,7 @@ class Delivery:
 
 
 class PDFGenerator:
-    MARGIN = 5
+    MARGIN = 3
     ORIENT = 'L'
     UNIT = 'mm'
     FORMAT = 'A4'
@@ -23,15 +25,19 @@ class PDFGenerator:
     MAX_HEIGHT = 125
     TEXT_HEIGHT = 55
     IMAGE_COLUMNS = 3
+    MIN_DATA_COLS = 4
 
-    def __init__(self, images_dir, output_dir='./out'):
+    def __init__(self, images_dir, output_dir='./output'):
         self.images_dir = images_dir
         self.output_dir = output_dir
         self.pdf = FPDF(orientation=self.ORIENT, unit=self.UNIT, format=self.FORMAT)
-        self.page_width = self.pdf.w - (2 * self.MARGIN)
+
+        self.page_width = self.pdf.w - (4 * self.MARGIN)
         self.image_width = self.page_width / self.IMAGE_COLUMNS
+
         self.pdf.set_font(*self.FONT)
         self.pdf.set_text_color(70, 70, 70)
+
         os.makedirs(output_dir, exist_ok=True)
 
     def get_images(self) -> List[str]:
@@ -65,7 +71,7 @@ class PDFGenerator:
                 continue
 
             items = list(filter(bool, line.split('\t')))
-            if len(items) < 4:
+            if len(items) < self.MIN_DATA_COLS:
                 raise ValueError(f'dados invalidos para a linha: {line}')
 
             date, plate, _, ticket = items[:4]
@@ -103,7 +109,7 @@ class PDFGenerator:
 
     def add_header(self, delivery: Delivery):
         self.pdf.image(
-            resource_path('logo.jpeg'),
+            str(resource_path('frontend/static/assets/logo.jpeg')),
             x=10,
             y=-12,
             w=50,
@@ -114,7 +120,7 @@ class PDFGenerator:
         self.pdf.cell(
             0,
             10,
-            f'INFORMAÇÕES DA ENTREGA DE CARVÃO - {delivery.date}',
+            f'QUALIDADE DO CARVÃO VEGETAL ITACAMBIRA - {delivery.date}',
             ln=True,
             align='C',
         )
@@ -147,7 +153,7 @@ class PDFGenerator:
             if not os.path.exists(image):
                 raise FileNotFoundError(f'Imagem inexistente: {image}')
             self.pdf.image(image, x=x, y=y, w=self.image_width, h=self.MAX_HEIGHT)
-            x += self.image_width
+            x += self.image_width + self.MARGIN
 
     def create_pdf(self, data: str) -> str:
         deliveries = self.parse_deliveries(data)
@@ -159,8 +165,6 @@ class PDFGenerator:
         )
 
         self.pdf.output(output_pdf)
-        print(f'PDF criado com sucesso: {output_pdf}')
-
         output_dir = os.path.dirname(output_pdf)
         os.startfile(os.path.abspath(output_dir))
         return output_pdf

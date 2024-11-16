@@ -1,11 +1,13 @@
-import webview
 import atexit
-from src.backend.watcher import start_watch_thread, stop_watch_thread
+
+import webview
+
 from src.backend import static
-from src.backend.utils import is_freezed
 from src.backend.api import API
-from src.config import CONFIG, BASE_CONTEXT
 from src.backend.template import render
+from src.backend.utils import is_freezed
+from src.backend.watcher import start_watch_thread, stop_watch_thread
+from src.config import BASE_CONTEXT, CONFIG
 
 
 def setup_cleanup():
@@ -24,7 +26,7 @@ def main():
         resizable=CONFIG.resizable,
         frameless=CONFIG.frameless,
         min_size=CONFIG.min_size,
-        background_color='#151b25',
+        background_color='#f4f6f6',
         html=render('index.html', **BASE_CONTEXT),
     )
 

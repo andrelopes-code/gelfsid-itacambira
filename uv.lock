@@ -75,6 +75,15 @@ wheels = [
 ]
 
 [[package]]
+name = "isort"
+version = "5.13.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/87/f9/c1eb8635a24e87ade2efce21e3ce8cd6b8630bb685ddc9cdaca1349b2eb5/isort-5.13.2.tar.gz", hash = "sha256:48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109", size = 175303 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/b3/8def84f539e7d2289a02f0524b944b15d7c75dab7628bedf1c4f0992029c/isort-5.13.2-py3-none-any.whl", hash = "sha256:8ca5e72a8d85860d5a3fa69b8745237f2939afe12dbf656afbcb47fe72d947a6", size = 92310 },
+]
+
+[[package]]
 name = "jinja2"
 version = "3.1.4"
 source = { registry = "https://pypi.org/simple" }
@@ -305,6 +314,12 @@ wheels = [
 ]
 
 [[package]]
+name = "pyperclip"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/30/23/2f0a3efc4d6a32f3b63cdff36cd398d9701d26cda58e3ab97ac79fb5e60d/pyperclip-1.9.0.tar.gz", hash = "sha256:b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310", size = 20961 }
+
+[[package]]
 name = "pythonnet"
 version = "3.0.4"
 source = { registry = "https://pypi.org/simple" }
@@ -430,12 +445,15 @@ dependencies = [
     { name = "jinja2" },
     { name = "jinja2-simple-tags" },
     { name = "psutil" },
+    { name = "pyinstaller" },
+    { name = "pyperclip" },
     { name = "pywebview" },
     { name = "watchfiles" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "isort" },
     { name = "pyinstaller" },
 ]
 
@@ -445,9 +463,14 @@ requires-dist = [
     { name = "jinja2", specifier = ">=3.1.4" },
     { name = "jinja2-simple-tags", specifier = ">=0.6.1" },
     { name = "psutil", specifier = ">=6.1.0" },
+    { name = "pyinstaller", specifier = ">=6.11.1" },
+    { name = "pyperclip", specifier = ">=1.9.0" },
     { name = "pywebview", specifier = ">=5.3.2" },
     { name = "watchfiles", specifier = ">=0.24.0" },
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pyinstaller", specifier = ">=6.11.1" }]
+dev = [
+    { name = "isort", specifier = ">=5.13.2" },
+    { name = "pyinstaller", specifier = ">=6.11.1" },
+]

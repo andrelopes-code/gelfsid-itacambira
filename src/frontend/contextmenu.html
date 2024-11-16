@@ -1,0 +1,214 @@
+<div
+    id="contextMenu"
+    class="z-50 fixed border-gray-200 hidden bg-white shadow-lg py-2 border rounded-lg w-56"
+></div>
+
+<div class="hidden">
+    <svg
+        id="icon-paste"
+        class="w-4 h-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+    >
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+    </svg>
+
+    <svg id="icon-cut" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="6" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+        <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+        <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+    </svg>
+
+    <svg
+        id="icon-copy"
+        class="w-4 h-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+    >
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+</div>
+
+<script>
+    class ContextMenu {
+        constructor() {
+            this.menu = document.getElementById("contextMenu");
+            this.lastClickedElement = null;
+
+            // Bind dos métodos para manter o contexto correto
+            this.executarColar = this.executarColar.bind(this);
+            this.executarCopiar = this.executarCopiar.bind(this);
+            this.executarRecortar = this.executarRecortar.bind(this);
+
+            this.menuItems = [
+                {
+                    id: "paste",
+                    label: "Colar",
+                    icon: "icon-paste",
+                    shortcut: "Ctrl+V",
+                    action: this.executarColar,
+                    condition: (element) => element.tagName === "INPUT" || element.tagName === "TEXTAREA",
+                },
+                {
+                    id: "copy",
+                    label: "Copiar",
+                    icon: "icon-copy",
+                    shortcut: "Ctrl+C",
+                    action: this.executarCopiar,
+                    condition: (element) => window.getSelection().toString().length > 0,
+                },
+                {
+                    id: "cut",
+                    label: "Recortar",
+                    icon: "icon-cut",
+                    shortcut: "Ctrl+X",
+                    action: this.executarRecortar,
+                    condition: (element) => window.getSelection().toString().length > 0,
+                },
+            ];
+
+            this.setupEventListeners();
+        }
+
+        setupEventListeners() {
+            document.addEventListener("contextmenu", this.handleContextMenu.bind(this));
+            document.addEventListener("click", this.handleClick.bind(this));
+            document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        }
+
+        handleContextMenu(e) {
+            e.preventDefault();
+            this.lastClickedElement = e.target;
+            this.menu.innerHTML = "";
+            const relevantItems = this.menuItems.filter((item) =>
+                item.condition ? item.condition(this.lastClickedElement) : true
+            );
+
+            if (relevantItems.length === 0) {
+                this.menu.classList.add("hidden");
+                return;
+            }
+
+            relevantItems.forEach((item, index) => {
+                const menuItem = this.createMenuItem(item);
+                if (index < relevantItems.length - 1) {
+                    menuItem.classList.add("border-b", "border-gray-100");
+                }
+                this.menu.appendChild(menuItem);
+            });
+
+            const x = Math.min(e.pageX, window.innerWidth - this.menu.offsetWidth);
+            const y = Math.min(e.pageY, window.innerHeight - this.menu.offsetHeight);
+
+            this.menu.classList.remove("hidden");
+            this.menu.style.left = `${x}px`;
+            this.menu.style.top = `${y}px`;
+        }
+
+        createMenuItem(item) {
+            const div = document.createElement("div");
+            div.className = "flex items-center px-4 py-2 hover:bg-gray-50 cursor-pointer select-none";
+
+            const iconTemplate = document.getElementById(item.icon);
+            const icon = iconTemplate.cloneNode(true);
+            icon.classList.remove("hidden");
+
+            const textContainer = document.createElement("div");
+            textContainer.className = "flex justify-between items-center flex-1 ml-3";
+
+            const label = document.createElement("span");
+            label.className = "text-gray-700";
+            label.textContent = item.label;
+
+            const shortcut = document.createElement("span");
+            shortcut.className = "text-gray-400 text-sm ml-4";
+            shortcut.textContent = item.shortcut;
+
+            textContainer.appendChild(label);
+            textContainer.appendChild(shortcut);
+
+            div.appendChild(icon);
+            div.appendChild(textContainer);
+
+            div.addEventListener("click", () => {
+                item.action();
+                this.hide();
+            });
+
+            return div;
+        }
+
+        handleClick(e) {
+            if (!this.menu.contains(e.target)) {
+                this.hide();
+            }
+        }
+
+        handleKeyDown(e) {
+            if (e.key === "Escape") {
+                this.hide();
+            }
+        }
+
+        hide() {
+            this.menu.classList.add("hidden");
+        }
+
+        async executarColar() {
+            if (!this.lastClickedElement) return;
+
+            try {
+                const texto = await pywebview.api.clipboard.get();
+                const inicio = this.lastClickedElement.selectionStart;
+                const fim = this.lastClickedElement.selectionEnd;
+
+                const valorAtual = this.lastClickedElement.value;
+                this.lastClickedElement.value =
+                    valorAtual.substring(0, inicio) + texto + valorAtual.substring(fim);
+
+                const novaPosicao = inicio + texto.length;
+                this.lastClickedElement.setSelectionRange(novaPosicao, novaPosicao);
+
+                this.lastClickedElement.dispatchEvent(new Event("input", { bubbles: true }));
+            } catch (err) {
+                console.error("Erro ao colar:", err);
+            }
+        }
+
+        executarCopiar() {
+            const texto = window.getSelection().toString();
+            if (texto) {
+                pywebview.api.clipboard.set(texto);
+            }
+        }
+
+        executarRecortar() {
+            const texto = window.getSelection().toString();
+            if (texto) {
+                pywebview.api.clipboard.set(texto);
+                if (
+                    this.lastClickedElement.tagName === "INPUT" ||
+                    this.lastClickedElement.tagName === "TEXTAREA"
+                ) {
+                    const inicio = this.lastClickedElement.selectionStart;
+                    const fim = this.lastClickedElement.selectionEnd;
+                    this.lastClickedElement.value =
+                        this.lastClickedElement.value.substring(0, inicio) +
+                        this.lastClickedElement.value.substring(fim);
+                    this.lastClickedElement.setSelectionRange(inicio, inicio);
+                }
+            }
+        }
+    }
+
+    // Inicializa o menu de contexto
+    const contextMenu = new ContextMenu();
+</script>

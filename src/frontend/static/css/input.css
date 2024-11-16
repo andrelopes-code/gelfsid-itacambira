@@ -46,3 +46,21 @@ textarea:-ms-input-placeholder {
     top: 48%;
     transform: translateY(-48%);
 }
+
+.swal2-container {
+    padding: 0 !important;
+}
+
+.swal2-popup {
+    padding: 0 !important;
+}
+
+body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+    padding-right: 0 !important;
+    overflow-y: auto !important;
+}
+
+.modal-open {
+    overflow: auto !important;
+    padding-right: 0 !important;
+}

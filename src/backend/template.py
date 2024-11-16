@@ -1,12 +1,14 @@
 import jinja2
-from src.config import CONFIG
 from jinja2_simple_tags import StandaloneTag
+
+from src.config import CONFIG
 
 
 class StaticExtension(StandaloneTag):
     tags = {'static'}
 
-    def render(self, path):
+    @staticmethod
+    def render(path):
         return f'http://localhost:{CONFIG.static_port}/{path}'
 
 

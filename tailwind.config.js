@@ -5,11 +5,16 @@ module.exports = {
         extend: {
             colors: {
                 primary: "#d68367",
+                background: {
+                    DEFAULT: "#f4f6f6",
+                    100: "#f7faff",
+                    200: "#ecf0f3",
+                    400: "#485160",
+                },
                 dark: {
                     DEFAULT: "#11151c",
                     100: "#151b25",
                     200: "#222c3d",
-                    300: "#384150",
                     400: "#536696",
                 },
             },

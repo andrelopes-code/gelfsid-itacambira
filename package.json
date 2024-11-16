@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "freeze": "python src/backend/freeze.py",
         "tw": "npx tailwindcss -i ./src/frontend/static/css/input.css -o ./src/frontend/static/css/style.css --watch"
     }
 }

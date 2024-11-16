@@ -1,7 +1,9 @@
 import subprocess
 from threading import Thread
-from src.config import CONFIG
+
 import psutil
+
+from src.config import CONFIG
 
 
 def serve():

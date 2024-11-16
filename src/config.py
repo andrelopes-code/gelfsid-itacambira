@@ -1,10 +1,12 @@
 from dataclasses import dataclass
-from src.backend.utils import resource_path
 from pathlib import Path
+
 import webview
 
+from src.backend.utils import resource_path
+
 TEMPLATES_DIR = Path(resource_path('frontend'))
-webview.settings['OPEN_DEVTOOLS_IN_DEBUG'] = False
+webview.settings['OPEN_DEVTOOLS_IN_DEBUG'] = True
 
 
 @dataclass

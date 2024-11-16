@@ -1,14 +1,14 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% include "contextmenu.html" %}
 
 <div class="flex flex-col items-center gap-5 p-5 w-full h-full text-slate-700">
     <!-- Directory Picker -->
     <div
-        class="flex justify-between items-center border-2 border-dark-200 bg-dark-100 p-5 rounded-lg w-full h-fit"
+        class="flex justify-between items-center border-2 bg-background-100 p-5 border-background-200 rounded-lg w-full h-fit"
     >
         <div class="flex justify-between items-center gap-3 w-full">
             <p
                 id="directory-display"
-                class="font-semibold text-dark-400 text-ellipsis text-nowrap overflow-hidden"
+                class="font-semibold text-background-400 text-ellipsis text-nowrap overflow-hidden"
             >
                 nenhuma pasta foi selecionada ainda.
             </p>
@@ -24,7 +24,7 @@
 
     <!-- Data Textarea -->
     <textarea
-        class="flex-grow border-2 border-dark-200 focus:border-slate-700 bg-dark-100 px-3 py-3 rounded-lg w-full font-semibold text-dark-400 placeholder:text-center placeholder:text-dark-400 transition-all duration-200 noscroll outline-none scroll placeholder:align-middle"
+        class="flex-grow border-2 focus:border-gray-300 bg-background-100 px-3 py-3 border-background-200 rounded-lg w-full h-full font-semibold text-background-400 placeholder:text-background-400 placeholder:text-center transition-all duration-200 noscroll outline-none scroll placeholder:align-middle"
         name="data-input"
         id="data-input"
         placeholder="Cole aqui os dados copiados da planilha."
@@ -35,8 +35,8 @@
     <!-- Generate Button -->
     <button
         id="generate-btn"
-        class="hover:brightness-90 bg-primary px-2 py-1 rounded-lg w-full h-14 font-bold text-md text-nowrap text-white transition-all duration-150"
-        onclick="generate()"
+        class="hover:brightness-90 bg-primary px-2 py-4 rounded-lg w-full font-bold text-md text-nowrap text-white transition-all duration-150"
+        onclick="generate_pdf()"
     >
         GERAR
     </button>

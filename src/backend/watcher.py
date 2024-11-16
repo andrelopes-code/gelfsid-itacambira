@@ -1,4 +1,5 @@
 import threading
+
 import watchfiles
 
 watch_event = threading.Event()

@@ -1,9 +1,9 @@
 <div class="flex justify-between items-center bg-transparent pl-4 pywebview-drag-region w-full h-10">
-    <p class="font-bold text-dark-400">Gerar PDF</p>
+    <p class="font-bold text-background-400">Gerar PDF</p>
 
     <div class="flex justify-center items-center h-full">
         <button
-            onclick="window.pywebview.api.minimize_window()"
+            onclick="window.pywebview.api.window.minimize()"
             class="hover:brightness-50 px-4 window-button h-full"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#888" viewBox="0 0 256 256">
@@ -13,7 +13,7 @@
 
         {% if resizable %}
         <button
-            onclick="window.pywebview.api.toggle_maximize_window()"
+            onclick="window.pywebview.api.window.toggle_maximize()"
             class="hover:brightness-50 px-4 window-button h-full text-center"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#666" viewBox="0 0 256 256">
@@ -25,7 +25,7 @@
         {% endif %}
 
         <button
-            onclick="window.pywebview.api.close_window()"
+            onclick="window.pywebview.api.window.destroy()"
             class="hover:bg-red-400 px-4 window-button h-full hover:text-white group"
         >
             <svg

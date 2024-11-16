@@ -47,9 +47,9 @@ class WindowResizer {
         this.state.startY = e.screenY;
 
         const [size, pos, minSize] = await Promise.all([
-            window.pywebview.api.window_size(),
-            window.pywebview.api.window_position(),
-            window.pywebview.api.window_min_size(),
+            window.pywebview.api.window.size(),
+            window.pywebview.api.window.position(),
+            window.pywebview.api.window.min_size(),
         ]);
 
         Object.assign(this.state, {
@@ -95,7 +95,7 @@ class WindowResizer {
         }
 
         requestAnimationFrame(() => {
-            window.pywebview.api.resize_window(
+            window.pywebview.api.window.resize(
                 newDimensions.width,
                 newDimensions.height,
                 newDimensions.x,
