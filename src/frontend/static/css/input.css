@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    -webkit-font-smoothing: subpixel-antialiased;
+    box-sizing: border-box;
+}
+
 .window-button {
     font-family: system-ui, -apple-system;
     user-select: none;
