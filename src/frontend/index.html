@@ -1,44 +1,30 @@
-{% extends "base.html" %} {% block content %} {% include "contextmenu.html" %}
-<div class="flex flex-col items-center gap-5 p-5 w-full h-full text-slate-700">
-    <!-- Directory Picker -->
-    <div
-        class="flex justify-between items-center border-2 bg-background-100 p-5 border-background-200 rounded-lg w-full h-fit"
-    >
-        <div class="flex justify-between items-center gap-3 w-full">
-            <p
-                id="directory-display"
-                class="font-semibold text-background-400 text-ellipsis text-nowrap overflow-hidden"
-            >
-                nenhuma pasta foi selecionada ainda.
-            </p>
-            <button
-                id="directory-btn"
-                class="bg-primary px-6 py-5 rounded-md font-bold text-md text-nowrap text-sm text-white transition-all duration-200 active:scale-95"
-                onclick="select_directory()"
-            >
-                SELECIONAR PASTA DE FOTOS
-            </button>
+{% extends "base.html" %}
+{% block content %}
+    <div class="flex flex-col items-center gap-5 p-5 w-full h-full text-slate-700">
+        <!-- Directory Picker -->
+        <div class="flex justify-between items-center border-2 bg-background-lighter p-5 border-border rounded-lg w-full h-fit">
+            <div class="flex justify-between items-center gap-3 w-full">
+                <p id="directory-display"
+                   class="font-semibold text-ellipsis text-nowrap text-secondary overflow-hidden">
+                    nenhuma pasta foi selecionada ainda.
+                </p>
+                <button id="directory-btn"
+                        class="bg-primary px-6 py-5 rounded-md font-bold text-md text-nowrap text-sm text-white transition-all duration-200 active:scale-95"
+                        onclick="select_directory()">SELECIONAR PASTA DE FOTOS</button>
+            </div>
         </div>
+        <!-- Data Textarea -->
+        <textarea class="flex-grow border-2 focus:border-gray-300 bg-background-lighter px-3 py-3 border-border rounded-lg w-full h-full font-semibold text-secondary placeholder:text-center placeholder:text-secondary transition-all duration-200 noscroll outline-none scroll placeholder:align-middle"
+                  name="data-input"
+                  id="data-input"
+                  placeholder="Cole aqui os dados copiados da planilha."
+                  spellcheck="false"
+                  style="box-sizing: border-box;
+                         resize: none;
+                         overflow-y: auto"></textarea>
+        <!-- Generate Button -->
+        <button id="generate-btn"
+                class="bg-primary px-6 py-5 rounded-md w-full font-bold text-md text-nowrap text-sm text-white transition-all duration-200 active:scale-95"
+                onclick="generate_pdf()">GERAR</button>
     </div>
-
-    <!-- Data Textarea -->
-    <textarea
-        class="flex-grow border-2 focus:border-gray-300 bg-background-100 px-3 py-3 border-background-200 rounded-lg w-full h-full font-semibold text-background-400 placeholder:text-background-400 placeholder:text-center transition-all duration-200 noscroll outline-none scroll placeholder:align-middle"
-        name="data-input"
-        id="data-input"
-        placeholder="Cole aqui os dados copiados da planilha."
-        spellcheck="false"
-        style="box-sizing: border-box; resize: none; overflow-y: auto"
-    ></textarea>
-
-    <!-- Generate Button -->
-    <button
-        id="generate-btn"
-        class="bg-primary px-6 py-5 rounded-md w-full font-bold text-md text-nowrap text-sm text-white transition-all duration-200 active:scale-95"
-        onclick="generate_pdf()"
-    >
-        GERAR
-    </button>
-</div>
-
 {% endblock content %}

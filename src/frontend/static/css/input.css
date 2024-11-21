@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    -webkit-font-smoothing: subpixel-antialiased;
-    box-sizing: border-box;
-}
-
-.window-button {
-    font-family: system-ui, -apple-system;
-    user-select: none;
-    line-height: 1;
-}
-
-.noscroll::-webkit-scrollbar {
-    display: none;
-}
-
 textarea::placeholder {
     text-align: center;
     position: relative;
@@ -50,22 +35,4 @@ textarea:-ms-input-placeholder {
     position: relative;
     top: 48%;
     transform: translateY(-48%);
-}
-
-.swal2-container {
-    padding: 0 !important;
-}
-
-.swal2-popup {
-    padding: 0 !important;
-}
-
-body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
-    padding-right: 0 !important;
-    overflow-y: auto !important;
-}
-
-.modal-open {
-    overflow: auto !important;
-    padding-right: 0 !important;
 }

@@ -31,7 +31,7 @@ const SwalUtils = {
             icon: "success",
             title: title,
             text: message,
-            confirmButtonColor: "#79eb6e",
+            confirmButtonColor: "#89e67e",
         });
     },
 
@@ -55,7 +55,7 @@ const SwalUtils = {
             confirmButtonText: confirmText,
             cancelButtonText: cancelText,
             confirmButtonColor: "#6ea2eb",
-            cancelButtonColor: "#6c757d",
+            cancelButtonColor: "#666d74",
             reverseButtons: true,
         });
     },
@@ -66,7 +66,7 @@ const SwalUtils = {
             icon: "warning",
             title: title,
             text: message,
-            confirmButtonColor: "#d68367",
+            confirmButtonColor: "#e6714b",
         });
     },
 
@@ -137,7 +137,7 @@ const SwalUtils = {
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#e66360",
-            cancelButtonColor: "#6c757d",
+            cancelButtonColor: "#666d74",
             confirmButtonText: "Sim, deletar!",
             cancelButtonText: "Cancelar",
         });

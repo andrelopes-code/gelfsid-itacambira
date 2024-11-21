@@ -3,15 +3,14 @@ body {
     overflow: hidden;
 }
 
-/* Área de resize */
 .resize-handle {
     position: fixed;
+    z-index: 9999;
     background: transparent;
 }
 
-/* Handle laterais */
 .resize-handle.right {
-    width: 4px;
+    width: 6px;
     top: 0;
     right: 0;
     height: 100%;
@@ -19,16 +18,15 @@ body {
 }
 
 .resize-handle.left {
-    width: 4px;
+    width: 6px;
     top: 0;
     left: 0;
     height: 100%;
     cursor: w-resize;
 }
 
-/* Handle superior e inferior */
 .resize-handle.top {
-    height: 4px;
+    height: 6px;
     top: 0;
     left: 0;
     width: 100%;
@@ -36,17 +34,16 @@ body {
 }
 
 .resize-handle.bottom {
-    height: 4px;
+    height: 6px;
     bottom: 0;
     left: 0;
     width: 100%;
     cursor: s-resize;
 }
 
-/* Cantos */
 .resize-handle.corner {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     background: transparent;
 }
 
@@ -72,11 +69,4 @@ body {
     bottom: 0;
     right: 0;
     cursor: se-resize;
-}
-
-/* Container principal */
-#app-container {
-    width: 100vw;
-    height: 100vh;
-    background: white;
 }

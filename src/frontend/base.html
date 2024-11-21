@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PyWebView Application</title>
-        <script>
-            document.oncontextmenu = function () {
-                return true;
-            };
-        </script>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <title>{{ title }}</title>
         <!-- Links -->
+        <link rel="stylesheet" href="{% static 'css/global.css' %}" />
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}" />
     </head>
-
     <body class="flex flex-col bg-background w-screen h-screen">
-        <!-- Resize Handlers -->
-        <div class="left resize-handle" id="left-resize"></div>
-        <div class="right resize-handle" id="right-resize"></div>
-        <div class="top resize-handle" id="top-resize"></div>
-        <div class="bottom resize-handle" id="bottom-resize"></div>
-
-        <!-- Corners -->
-        <div class="top-left corner resize-handle" id="top-left-resize"></div>
-        <div class="top-right corner resize-handle" id="top-right-resize"></div>
-        <div class="bottom-left corner resize-handle" id="bottom-left-resize"></div>
-        <div class="bottom-right corner resize-handle" id="bottom-right-resize"></div>
-
-        {% include "titlebar.html" %} {% block content %} {% endblock content %}
+        {% if resizable %}
+            <!-- Resize Handlers -->
+            <div class="left resize-box resize-handle" id="left-resize"></div>
+            <div class="right resize-box resize-handle" id="right-resize"></div>
+            <div class="top resize-box resize-handle" id="top-resize"></div>
+            <div class="bottom resize-box resize-handle" id="bottom-resize"></div>
+            <div class="top-left corner resize-box resize-handle" id="top-left-resize"></div>
+            <div class="top-right corner resize-box resize-handle"
+                 id="top-right-resize"></div>
+            <div class="bottom-left corner resize-box resize-handle"
+                 id="bottom-left-resize"></div>
+            <div class="bottom-right corner resize-box resize-handle"
+                 id="bottom-right-resize"></div>
+        {% endif %}
+        <!-- Titlebar and Content -->
+        <div class="fixed w-full h-10 min-h-10 max-h-10">{% include "titlebar.html" %}</div>
+        <div class="pt-10 w-full h-full min-h-full max-h-full">
+            {% include "contextmenu.html" %}
+            {% block content %}
+            {% endblock content %}
+        </div>
     </body>
-
     <!-- Scripts -->
-    <script src="{% static 'js/swalUtils.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'js/contextmenu.js' %}"></script>
+    <script src="{% static 'js/swal.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% if resizable %}
-    <link rel="stylesheet" href="{% static 'css/resize.css' %}" />
-    <script src="{% static 'js/resize.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/resize.css' %}" />
+        <script src="{% static 'js/resize.js' %}"></script>
     {% endif %}
 </html>

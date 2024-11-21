@@ -113,6 +113,8 @@ ipython_config.py
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
+.ruff_cache
+__pycache__
 
 # Celery stuff
 celerybeat-schedule
@@ -163,3 +165,6 @@ cython_debug/
 
 output
 node_modules
+.data
+.vscode
+translations_cache.json

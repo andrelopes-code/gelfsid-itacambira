@@ -109,11 +109,11 @@ class PDFGenerator:
 
     def add_header(self, delivery: Delivery):
         self.pdf.image(
-            str(resource_path('frontend/static/assets/logo.jpeg')),
-            x=10,
-            y=-12,
-            w=50,
-            h=50,
+            str(resource_path('frontend/static/assets/logo.png')),
+            x=8,
+            y=-2,
+            w=48,
+            h=30,
         )
 
         self.pdf.set_font('Arial', style='B', size=14)

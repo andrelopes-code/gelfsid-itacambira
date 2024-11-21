@@ -1,47 +1,33 @@
-import subprocess
-from threading import Thread
-
-import psutil
+import threading
+from functools import partial
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from src.config import CONFIG
 
 
-def serve():
-    def run_server():
-        command = [
-            'python',
-            '-m',
-            'http.server',
-            str(CONFIG.static_port),
-            '-d',
-            str(CONFIG.static_dir),
-        ]
+class LocalStaticServer:
+    """Server for serving static files locally"""
 
-        startupinfo = subprocess.STARTUPINFO()
-        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        startupinfo.wShowWindow = subprocess.SW_HIDE
+    def __init__(self, port=0):
+        self.port = port
+        self.server = None
+        self._start_server()
 
-        process = subprocess.Popen(
-            command,
-            stderr=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            startupinfo=startupinfo,
-        )
+    def _start_server(self):
+        handler = partial(SimpleHTTPRequestHandler, directory=str(CONFIG.static_dir))
+        self.server = HTTPServer(('127.0.0.1', self.port), handler)
+        self.port = self.server.server_port
 
-        run_server.process = process
+        thread = threading.Thread(target=self.server.serve_forever, daemon=True)
+        thread.start()
 
-    def cleanup():
-        if hasattr(run_server, 'process'):
-            try:
-                parent = psutil.Process(run_server.process.pid)
-                for child in parent.children(recursive=True):
-                    child.terminate()
-                parent.terminate()
+    def get_url(self, path):
+        return f'http://127.0.0.1:{self.port}/{path}'
 
-            except (psutil.NoSuchProcess, ProcessLookupError):
-                pass
+    def stop(self):
+        if self.server:
+            self.server.shutdown()
+            self.server.server_close()
 
-    thread = Thread(target=run_server, daemon=True)
-    thread.start()
 
-    return cleanup
+static_server = LocalStaticServer()

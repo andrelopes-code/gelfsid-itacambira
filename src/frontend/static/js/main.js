@@ -1,7 +1,7 @@
 let IMAGES_DIR = null;
 
 async function select_directory() {
-    result = await pywebview.api.files.select_directory();
+    result = await pywebview.api.system.select_directory();
     if (!result) return;
 
     const directoryDisplay = document.getElementById("directory-display");

@@ -1,19 +1,13 @@
-from src.backend import pdfgen
-from src.backend.api.base import BaseAPI
+from src.backend import pdfgen, swal
+from src.backend.api.common.base import BaseAPI
+from src.backend.utils import handle_api_errors
 
 
+@handle_api_errors
 class PDFAPI(BaseAPI):
     def generate(self, images_dir, data):
-        generator = pdfgen.PDFGenerator(images_dir=images_dir)
-
         try:
+            generator = pdfgen.PDFGenerator(images_dir=images_dir)
             generator.create_pdf(data=data)
         except Exception as e:
-            self._window.evaluate_js(
-                f"""
-                SwalUtils.error(
-                    "{str(e)}",
-                    "UM ERRO OCORREU"
-                );
-                """
-            )
+            swal.error(self._window, str(e), 'ERRO AO GERAR PDF')
